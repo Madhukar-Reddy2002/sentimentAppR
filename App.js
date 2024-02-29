@@ -1,15 +1,9 @@
+// App.js
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  Animated,
-  Easing,
-} from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Animated, Easing, StatusBar } from 'react-native';
 import axios from 'axios';
 import ResultsCard from './ResultPage';
+import Switch from './Switch';
 
 const App = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -64,19 +58,9 @@ const App = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: themeColors.background }]}>
+      <StatusBar  barStyle="light-content" />
       <View style={styles.box}>
-        <View style={styles.outerSwitchContainer}>
-          <TouchableOpacity style={styles.switchContainer} onPress={toggleTheme}>
-            <Animated.View style={[styles.innerSwitch, { elevation: ballElevation }]}>
-              <Animated.View
-                style={[
-                  styles.ball,
-                  { transform: [{ translateX: ballTranslateX }] },
-                ]}
-              />
-            </Animated.View>
-          </TouchableOpacity>
-        </View>
+        <Switch isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
         <TextInput
           style={[styles.input, { color: themeColors.text, borderColor: themeColors.text }]}
           placeholder="Enter text..."
@@ -103,39 +87,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   box: {
+    borderColor:'orange',
+    borderWidth:2,
+    borderRadius:45,
     width: '90%',
     padding: 20,
-    borderRadius: 20,
-    backgroundColor: 'transperant',
+    backgroundColor: 'transparent',
     alignItems: 'center',
-  },
-  outerSwitchContainer: {},
-  switchContainer: {
-    width: 70,
-    height: 35,
-    borderRadius: 70 / 2,
-    backgroundColor: '#e0e0e0',
-    shadowColor: '#c4c4c4',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-  },
-  innerSwitch: {
-    flex: 1,
-    borderRadius: 70 / 2,
-    backgroundColor: '#fff',
-    overflow: 'hidden',
-    justifyContent: 'center',
-  },
-  ball: {
-    width: 30,
-    height: 30,
-    borderRadius: 30 / 2,
-    backgroundColor: '#64b5f6',
-    shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.4,
-    elevation: 2,
   },
   input: {
     width: '100%',
